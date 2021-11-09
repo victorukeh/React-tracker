@@ -1,39 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Button from "./Button";
+import PropTypes from 'prop-types'
+// Use location helps us to see the route we are currently on
+import { useLocation } from 'react-router-dom'
+import Button from './Button'
 
-const Header = ({ title }) => {
-  const onClick = () => {
-    console.log("click");
-  };
-  // props
-
+const Header = ({ title, onAdd, showAdd }) => {
+  const location = useLocation()
   return (
-    <header className="header">
+    <header className='header'>
       {/* <h1>Task Tracker</h1> */}
-      {/* <h1 style = {headingStyle}>{title}</h1> */}
       <h1>{title}</h1>
-      <Button color="green" text="Add" onCLick={onClick} />
-      {/* <Button color='red' text='Danger'/>
-        <Button color='Aqua' text='Kiss'/> */}
-      {/* <h2>{props.title}</h2> */}
+     {location.pathname === '/' && <Button
+        color={showAdd ? 'orange' : 'green'}
+        text={showAdd ? 'Close' : 'Add'}
+        onClick={onAdd}
+      /> } 
     </header>
-  );
-};
+  )
+}
 
 Header.defaultProps = {
-  title: "Task tracker",
-};
+  title: 'Task Tracker',
+}
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-};
+}
 
-//To avoid inline text you can do the below
-//CSS in JS
-// const headingStyle = {
-//   color: "blue",
-//   backgroundColor: "#fff",
-// };
-
-export default Header;
+export default Header
